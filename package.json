@@ -8,8 +8,8 @@
     "dev": "vite",
     "build": "run-p type-check only-build",
     "preview": "vite preview",
-    "lint": "eslint src --cache",
-    "lint:fix": "eslint src --cache --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "type-check": "vue-vine-tsc --noEmit --composite false",
     "only-build": "vite build"
   },
