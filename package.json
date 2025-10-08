@@ -25,7 +25,7 @@
     "typescript": "^5.9.3",
     "unocss": "^66.5.2",
     "vite": "^7.1.9",
-    "vue-vine": "^1.7.7",
-    "vue-vine-tsc": "^1.7.7"
+    "vue-vine": "^1.7.11",
+    "vue-vine-tsc": "^1.7.11"
   }
 }
