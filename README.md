@@ -1,24 +1,157 @@
 Read `src/app.vine.ts` to view the source code.
 
+Source Code:
+
+```ts
+export function App() {
+  return vine`
+    <pre>
+      something there
+    </pre>
+    <textarea>
+      similar as pre
+    </textarea>
+  `
+}
+
+export function AnotherApp() {
+  return vine`
+    <div v-if="true /*
+      Hi there
+    */">
+      Good Morning
+    </div>
+  `
+}
+
+export function AnotherBuggedApp(){
+  return vine`
+  <div v-if="(() => {
+    const a: string = 'Hello\
+    Guys'
+    return a === 'wonderful'
+  })()">
+    Good AfterNoon
+  </div>
+  `
+}
+
+
+```
+
+Run the fix for once
+
+```ts
+export function App() {
+  return vine`
+    <pre>
+                          something there
+                        </pre
+    >
+    <textarea>
+                          similar as pre
+                        </textarea
+    >
+  `
+}
+
+export function AnotherApp() {
+  return vine`
+    <div
+      v-if="
+        true /*
+                          Hi there
+                        */
+      "
+    >
+      Good Morning
+    </div>
+  `
+}
+
+export function AnotherBuggedApp() {
+  return vine`
+    <div
+      v-if="(() => {
+        const a: string = 'Hello\
+                        Guys'
+        return a === 'wonderful'
+                      })()"
+    >
+      Good AfterNoon
+    </div>
+  `
+}
+```
+
+And twice
+
+```ts
+export function App() {
+  return vine`
+    <pre>
+                                              something there
+                                            </pre
+    >
+    <textarea>
+                                              similar as pre
+                                            </textarea
+    >
+  `
+}
+
+export function AnotherApp() {
+  return vine`
+    <div
+      v-if="
+        true /*
+                                              Hi there
+                                            */
+      "
+    >
+      Good Morning
+    </div>
+  `
+}
+
+export function AnotherBuggedApp() {
+  return vine`
+    <div
+      v-if="(() => {
+        const a: string = 'Hello\
+                                            Guys'
+              return a === 'wonderful'
+                                          })()"
+    >
+      Good AfterNoon
+    </div>
+  `
+}
+```
+
 Run `nr lint`
 
 Logs: 
 
 ```log
-~ nr lint                                                                                                                                              1 [18:30:35]
-
-> unocss-vine@0.0.0 lint /Users/liangmi/code/vine/unocss-vine
-> eslint src --cache
-
-...
-
-=============
-
 /Users/liangmi/code/vine/unocss-vine/src/app.vine.ts
-  2:9   error  'foo' is assigned a value but never used. Allowed unused vars must match /^_/u  unused-imports/no-unused-vars
-  3:12  error  'functionFoo' is defined but never used. Allowed unused vars must match /^_/u   unused-imports/no-unused-vars
+   4:7   warning  Insert `··`                                                   vue-vine/format-vine-template
+   5:5   warning  Replace `</pre` with `··</pre⏎····`                           vue-vine/format-vine-template
+   7:7   warning  Insert `··`                                                   vue-vine/format-vine-template
+   8:5   warning  Replace `</textarea` with `··</textarea⏎····`                 vue-vine/format-vine-template
+  14:9   warning  Replace `·v-if="` with `⏎······v-if="⏎········`               vue-vine/format-vine-template
+  15:1   warning  Replace `······` with `········`                              vue-vine/format-vine-template
+  16:5   warning  Replace `*/"` with `··*/⏎······"⏎····`                        vue-vine/format-vine-template
+  22:35  error    Missing space before opening brace                            style/space-before-blocks
+  24:3   warning  Replace `<div` with `··<div⏎·····`                            vue-vine/format-vine-template
+  25:1   warning  Insert `··`                                                   vue-vine/format-vine-template
+  25:23  error    Multiline support is limited to browsers supporting ES5 only  no-multi-str
+  26:5   warning  Insert `··`                                                   vue-vine/format-vine-template
+  27:1   warning  Replace `····` with `······`                                  vue-vine/format-vine-template
+  28:3   warning  Replace `})()"` with `··})()"⏎····`                           vue-vine/format-vine-template
+  29:1   warning  Insert `··`                                                   vue-vine/format-vine-template
+  30:1   warning  Insert `··`                                                   vue-vine/format-vine-template
 
-✖ 2 problems (2 errors, 0 warnings)
-
- ELIFECYCLE  Command failed with exit code 1.
+✖ 16 problems (2 errors, 14 warnings)
+  1 error and 14 warnings potentially fixable with the `--fix` option.
 ```
